@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 //Escribe un programa que cree un array dinámico de caracteres e ingrese una palabra desde el usuario. Luego, invierte la palabra (cambia el orden de las letras) utilizando memoria dinámica y muestra la palabra invertida.
+
 int main() {
  int n=0;
 
@@ -20,7 +21,7 @@ int main() {
     n+=1;
  } //contar el valor de la cadena*/
  int caracteres= strlen(string);
- printf("%d", caracteres);
+ printf("Numero de caracteres: %d\n", caracteres);
 
  char* nuevo=(char*)malloc((n*sizeof(char)));
  if (nuevo==NULL)
@@ -31,7 +32,7 @@ int main() {
 
  for (int i = 0; i <=caracteres; i++)
  {
-    nuevo[i]=string[n-i-2];
+    nuevo[i]=string[caracteres-i-2];
     
  }
  

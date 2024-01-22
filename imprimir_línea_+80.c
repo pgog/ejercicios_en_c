@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+//Escriba un program a que im prim a todas las líneas de entrada que sean mayores de 80 caracteres.
+
 #define MAXLINE 1000
 #define LIMIT 80
 

@@ -8,4 +8,7 @@
 
     printf("* de %d",*p);
     return 0;
+
+    char array[5];
+    for (int i; i<5;)
  }
