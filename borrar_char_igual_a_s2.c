@@ -20,7 +20,7 @@ int main(void)
 
   squeeze(str1, str2);
 
-  printf("%s", str1);
+  printf("%s\n", str1);
 
   return 0;
 }
