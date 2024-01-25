@@ -10,7 +10,7 @@ struct estudiante
     char bandera_grado[11];
 };
 
-int main(int argc, char* argv[])
+int main(){/* int argc, char* argv[])
 {
     if (argc!=4)
     {
@@ -20,9 +20,9 @@ int main(int argc, char* argv[])
     
 
     int edad_min = atoi(argv[2]); 
-    int edad_max = atoi(argv[3]);
+    int edad_max = atoi(argv[3]); */
     
-    FILE *archivo = fopen(argv[1], "rb");
+    FILE *archivo = fopen("/home/pamela/C/laboratorio/sample_data.bin"/* argv[1] */, "rb");
     if (archivo == NULL)
     {
         perror("Error al abrir el archivo");
@@ -34,10 +34,11 @@ int main(int argc, char* argv[])
     fseek(archivo, 2, SEEK_SET);
     fread(&numero_estudiantes, 4, 1, archivo);
     printf("%d\n", numero_estudiantes);
-
     struct estudiante estudiantes[numero_estudiantes];
 
-   
+    /* long posicion_actual = ftell(archivo);
+    printf("Posición actual: %ld\n", posicion_actual); */
+
     fseek(archivo, 18, SEEK_SET);
 
     
@@ -77,18 +78,24 @@ int main(int argc, char* argv[])
         fseek(archivo, 4, SEEK_CUR);
     }
 
-    
-    
-    printf("Name                     Age       Gender\n");
-
+    // imprmir estudiantes
     for (int i = 0; i < numero_estudiantes; i++)
+    {
+        printf("Nombre %-20s \tedad %d \t genero %-20s stado %s\n", estudiantes[i].nombre, estudiantes[i].edad,  estudiantes[i].bandera_genero, estudiantes[i].bandera_grado);
+    }
+ 
+ 
+    
+    /* printf("Name                     Age       Gender\n");
+
+    for (int i = 0; i < 1000; i++)
     {
         if (estudiantes[i].edad >=edad_min && estudiantes[i].edad <= edad_max)
         {
             printf("%-20s \t %d \t  %s\n", estudiantes[i].nombre, estudiantes[i].edad,  estudiantes[i].bandera_genero);
         }
         
-    }
+    } */
     
 
     fclose(archivo);
