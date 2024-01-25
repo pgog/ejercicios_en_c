@@ -10,7 +10,7 @@ struct estudiante
     char bandera_genero[7];
     char bandera_grado[11];
     unsigned int bandera2;
-} /* estudiantes[1000] */;
+};
 
 struct curso
 {
@@ -18,7 +18,7 @@ struct curso
     char nombre_curso[35];
     int horas_credito;
 
-} /* cursos[51] */;
+};
 
 struct matricula
 {
@@ -26,20 +26,17 @@ struct matricula
     int ID_curso_mat;
     int año;
     int semestre;
-} /* matriculas[12061] */;
+};
 
-int main() /* (int argc, char* argv[]) */
+int main(int argc, char* argv[])
 {
-    /* if (argc!=4)
+    if (argc!=2)
     {
-        printf("Uso: %s <arg1> <arg2>\n", argv[0]);
+        printf("No ingreso los argumentos correctos");
         return 1;
-    } */
+    }
 
-    /*  int edad_min = atoi(argv[2]);
-     int edad_max = atoi(argv[3]); */
-
-    FILE *archivo = fopen("/home/pamela/C/laboratorio/sample_data.bin" /* argv[1] */, "rb");
+    FILE *archivo = fopen( argv[1], "rb");
     if (archivo == NULL)
     {
         perror("Error al abrir el archivo");
@@ -47,38 +44,32 @@ int main() /* (int argc, char* argv[]) */
     }
 
     int numero_estudiantes = 0, numero_cursos = 0, numero_matriculas = 0;
+
     fseek(archivo, 2, SEEK_SET);
     fread(&numero_estudiantes, 4, 1, archivo);
-    printf("numero de estudiantes %d\n", numero_estudiantes);
-
+    
     struct estudiante estudiantes[numero_estudiantes];
 
     fseek(archivo, 6, SEEK_SET);
     fread(&numero_cursos, 4, 1, archivo);
-    printf("número de cursos %d\n", numero_cursos);
-
+    
     struct curso cursos[numero_cursos];
 
     fseek(archivo, 10, SEEK_SET);
     fread(&numero_matriculas, 4, 1, archivo);
-    printf("numero de matrículas%d\n", numero_matriculas);
-
+    
     struct matricula matriculas[numero_matriculas];
 
-    long posicion_actual = ftell(archivo);
-    printf("Posición actual: %ld\n", posicion_actual);
-
-    // fseek(archivo, 14, SEEK_SET);
-
+    //Estructura estudiantes
 
     unsigned char bandera;
-
+    
     for (int i = 0; i < numero_estudiantes; i++)
     {
-        // sacar el id
+        // registrar el id
         fread(&estudiantes[i].ID_estudiante, 4, 1, archivo);
 
-        // sacar el género
+        // registrar el género
 
         fread(&bandera, 1, 1, archivo);
         estudiantes[i].bandera2 = (bandera >> 6);
@@ -104,71 +95,49 @@ int main() /* (int argc, char* argv[]) */
             strcpy(estudiantes[i].bandera_grado, "Graduado");
         }
 
-        // sacar el nombre
+        // registrar el nombre
         fread(&estudiantes[i].nombre, 23, 1, archivo);
 
-        // sacar la edad
+        // registrar la edad
 
         fread(&estudiantes[i].edad, 4, 1, archivo);
     }
 
-    // imprmir estudiantes
-    /* for (int i = 0; i < numero_estudiantes; i++)
-   {
-       printf("Nombre %-20s \tedad %d \t genero %s\n", estudiantes[i].nombre, estudiantes[i].edad,  estudiantes[i].bandera_genero);
-   } */
-
-   
-
-    // estructura cursos
-    // fseek(archivo, 32014, SEEK_SET);
+    // Estructura cursos
+    
     for (int i = 0; i < numero_cursos; i++)
     {
-        // sacar id
+        // registrar id
         fread(&cursos[i].ID_curso, 4, 1, archivo);
 
-        // sacar el nombre del curos
+        // registrar el nombre del curos
         fread(&cursos[i].nombre_curso, 32, 1, archivo);
 
-        // sacar la edad
+        // registrar la edad
 
         fread(&cursos[i].horas_credito, 4, 1, archivo);
     }
-    // imprmir cursos
-    /*  for (int i = 0; i < numero_cursos; i++)
-    {
-        printf("ID curso %-5d \tnombre del curso %-30s \t horas de credito %d\n", cursos[i].ID_curso, cursos[i].nombre_curso, cursos[i].horas_credito);
-    }
 
-    posicion_actual = ftell(archivo);
-    printf("Posición actual: %ld\n", posicion_actual); */
-
-    // estructura matriculas
-    //  fseek(archivo, 32010, SEEK_SET);
+    // Estructura matriculas
+    
     for (int i = 0; i < numero_matriculas; i++)
     {
-        // sacar id_estudiantes
+        // registrar id_estudiantes
         fread(&matriculas[i].ID_estudiante, 4, 1, archivo);
 
-        // sacar el idcuros_mat
+        // registrar el idcuros_mat
         fread(&matriculas[i].ID_curso_mat, 4, 1, archivo);
 
-        // sacar la año
+        // registrar la año
 
         fread(&matriculas[i].año, 4, 1, archivo);
 
-        // semestre
+        // registrar semestre
 
         fread(&matriculas[i].semestre, 4, 1, archivo);
     }
 
-    // imprmir matriculas
-    /* for (int i = 0; i < numero_matriculas; i++)
-   {
-       printf("ID estudiante %-8d ID curso %-8d Año %-8d Semestre %d\n", matriculas[i].ID_estudiante, matriculas[i].ID_curso_mat, matriculas[i].año, matriculas[i].semestre);
-   } */
-
-    // numero de años
+    // Numero de años
     int año_min = 9999, año_max = 0;
 
     for (int i = 0; i < numero_matriculas; i++)
@@ -184,9 +153,8 @@ int main() /* (int argc, char* argv[]) */
     }
 
     int cantidad_años = (año_max - año_min) + 1;
-    // printf("min %d max %d %d\n ", año_min, año_max, cantidad_años);
 
-    // numero semestres
+    // Numero semestres
     int semestre_min = 100, semestre_max = 0;
 
     for (int i = 0; i < numero_matriculas; i++)
@@ -203,10 +171,7 @@ int main() /* (int argc, char* argv[]) */
 
     int num_semestres = (semestre_max - semestre_min) + 1;
 
-    // printf("smestre min %d max %d num %d\n", semestre_min, semestre_max, num_semestres);
-
     int registro_año = 0, semestre = 0;
-    // printf("año min %d\n", año_min);
 
     printf("Year    Semester  Male Undergrad  Female Undergrad  Male Grad  Female Grad\n");
 

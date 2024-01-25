@@ -4,6 +4,7 @@
 
 struct estudiante
 {
+
     int ID_estudiante;
     char nombre[100];
     int edad;
@@ -110,9 +111,9 @@ int main() /* (int argc, char* argv[]) */
     }
 
     // imprmir estudiantes
-    /* for (int i = 0; i < numero_estudiantes; i++)
+   /*  for (int i = 0; i < 400; i++)
    {
-       printf("Nombre %-20s \tedad %d \t genero %s\n", estudiantes[i].nombre, estudiantes[i].edad,  estudiantes[i].bandera_genero);
+       printf("%d Nombre %-20s \tedad %d \t genero %s\t estado %s\n", i, estudiantes[i].nombre, estudiantes[i].edad,  estudiantes[i].bandera_genero, estudiantes[i].bandera_grado);
    } */
 
     long posicion_actual = ftell(archivo);
@@ -161,13 +162,13 @@ int main() /* (int argc, char* argv[]) */
     }
 
     // imprmir matriculas
-    for (int i = 0; i < numero_matriculas; i++)
+    for (int i = 0; i < 1000; i++)
    {
-       printf("ID estudiante %-8d ID curso %-8d Año %-8d Semestre %d\n", matriculas[i].ID_estudiante, matriculas[i].ID_curso_mat, matriculas[i].año, matriculas[i].semestre);
+       printf("%d ID estudiante %-8d ID curso %-8d Año %-8d Semestre %d\n",i, matriculas[i].ID_estudiante, matriculas[i].ID_curso_mat, matriculas[i].año, matriculas[i].semestre);
    }
 
-
-    printf("Nombre del curso                         Promedio\n");
+    //imprimir edad promedio cursos
+    /* printf("Nombre del curso                         Promedio\n");
     for (int i = 0; i < numero_cursos; i++)
     {
         float edad_acum = 0, n_est_curso = 0;
@@ -191,7 +192,7 @@ int main() /* (int argc, char* argv[]) */
             
         }
         printf("%-40s %.1f\n", cursos[i].nombre_curso,edad_prom);
-    }
+    } */
 
     fclose(archivo);
     return 0;
